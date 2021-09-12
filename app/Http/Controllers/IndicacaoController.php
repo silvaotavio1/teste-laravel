@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Indicacao as Indicacao;
-// use App\IndicacoesStatus as IndicacoesStatus;
+use App\IndicacoesStatus as IndicacoesStatus;
 use App\Http\Resources\Indicacao as IndicacaoResource;
 use Illuminate\Http\Request;
 
@@ -51,18 +51,18 @@ class IndicacaoController extends Controller
 
     $status_id = $status_from < 3 ? ($status_from + 1) : $status_from;
 
-    // if($status_from <> $status_id)
-    // {
-    //   $IndicacoesStatus = new IndicacoesStatus;
-    //   $IndicacoesStatus->status_from = $status_from;
-    //   $IndicacoesStatus->status_id = $status_id;
-    //   $IndicacoesStatus->id = $request->id;
-    //   $IndicacoesStatus->save();
-    // }
-    // else
-    // {
+    if($status_from <> $status_id)
+    {
+      $IndicacoesStatus = new IndicacoesStatus;
+      $IndicacoesStatus->status_from = $status_from;
+      $IndicacoesStatus->status_id = $status_id;
+      $IndicacoesStatus->id = $request->id;
+      $IndicacoesStatus->save();
+    }
+    else
+    {
 
-    // }
+    }
 
     $indicacao = Indicacao::whereNull('deleted_at')->where('id', $request->id);
 
