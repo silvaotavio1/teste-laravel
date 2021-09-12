@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class IndicacaoController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
   public function index()
   {
     $indicacoes = Indicacao::whereNull('deleted_at')->paginate(15);
@@ -36,7 +41,7 @@ class IndicacaoController extends Controller
   {
     $indicacao = Indicacao::whereNull('deleted_at')->findOrFail($request->id);
 
-    $indicacao = (array)$indicacao;
+    $indicacao = (array) $indicacao;
 
     foreach ($indicacao as $key => $value) {
       if (strpos(" " . $key, "attributes")) {
