@@ -60,8 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('indicacoes2', [IndicacaoController::class, 'index']);
 });
 
-
-Route::middleware('auth:api')->get('/indicacoes3', [IndicacaoController::class, 'index']);
+Route::get('/indicacoes3', [IndicacaoController::class, 'index']);
 
 
 // Route::middleware('auth:api')->get('/indicacoes', [IndicacaoController::class, 'index']);
