@@ -18,16 +18,9 @@ use App\Http\Controllers\IndicacaoController;
 // Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
 
 Route::fallback(function () {
-    $token = null;
-    $headers = apache_request_headers();
-    if (isset($headers['Authorization'])) {
-        $matches = array();
-        preg_match('/Token token="(.*)"/', $headers['Authorization'], $matches);
-        if (isset($matches[1])) {
-            $token = $matches[1];
-        }
+    foreach (getallheaders() as $name => $value) {
+        echo "$name: $value\n";
     }
-    echo $token;
     return response()->json(['error' => 'Rota inexistente!'], 404);
 });
 
@@ -72,12 +65,12 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/indicacoes3', [IndicacaoController::class, 'index']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [
-        'uses' => 'IndicacaoController@index',
-        'as' => 'dashboard'
+      'uses' => 'IndicacaoController@index',
+      'as' => 'dashboard'
     ]);
-});
+  });
 
 
 // Route::middleware('auth:api')->get('/indicacoes', [IndicacaoController::class, 'index']);
