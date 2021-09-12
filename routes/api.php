@@ -18,6 +18,9 @@ use App\Http\Controllers\IndicacaoController;
 // Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
 
 Route::fallback(function () {
+    foreach (getallheaders() as $name => $value) {
+        echo "$name: $value\n";
+    }
     return response()->json(['error' => 'Rota inexistente!'], 404);
 });
 
