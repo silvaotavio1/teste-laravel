@@ -34,9 +34,11 @@ class IndicacaoController extends Controller
     $cpf_indica = preg_replace('/[^0-9]/', '', $cpf_indica);
     $cpf_indicado = preg_replace('/[^0-9]/', '', $cpf_indicado);
 
+    $errors = array();
+
     #--------------------------------------Validação do email----------------------------------------------
     if (!filter_var($email_indicado, FILTER_VALIDATE_EMAIL)) {
-      return response()->json(['error' => 'Email inválido'], 400);
+      array_push($errors, "Email inválido");
     }
     #-------------------------------------------FIM-------------------------------------------------------
 
@@ -47,9 +49,9 @@ class IndicacaoController extends Controller
     $valida_cpf_indica = new ValidaCPFCNPJ($cpf_indica);
 
     if (!$valida_cpf_indica->valida()) {
-      return response()->json(['error' => 'CPF ou CNPJ Inválido [indica]'], 400);
+      array_push($errors, "CPF ou CNPJ Inválido [indica]");
     } elseif (!$valida_cpf_indicado->valida()) {
-      return response()->json(['error' => 'CPF ou CNPJ Inválido [indicado]'], 400);
+      array_push($errors, "CPF ou CNPJ Inválido [indicado]");
     }
     #-------------------------------------------FIM-------------------------------------------------------
 
@@ -57,7 +59,7 @@ class IndicacaoController extends Controller
 
     #---------------------Verifica se o cpf_indicado é igual ao cpf_indica---------------------------------
     if ($cpf_indicado == $cpf_indica) {
-      return response()->json(['error' => 'O CPF indica deve ser diferente do CPF indicado'], 403);
+      array_push($errors, "O CPF indica deve ser diferente do CPF indicado");
     }
     #-------------------------------------------FIM-------------------------------------------------------
 
@@ -66,11 +68,14 @@ class IndicacaoController extends Controller
     #---------------------Verificação se o cpf já não foi indicado anteriormente---------------------------
     $count_indicado = Indicacao::where('cpf_indicado', $cpf_indicado)->get()->count();
     if ($count_indicado > 0) {
-      return response()->json(['error' => 'O CPF iformado já foi indicado!'], 403);
+      array_push($errors, "O CPF iformado já foi indicado!");
     }
     #-------------------------------------------FIM-------------------------------------------------------
 
-
+    if(!empty($errors))
+    {
+      return response()->json(['error' => $errors], 403);
+    }
 
     #------------------------Insere nova indicação após às etapas de validação-----------------------------
     $indicacao->email_indicado = $email_indicado;
