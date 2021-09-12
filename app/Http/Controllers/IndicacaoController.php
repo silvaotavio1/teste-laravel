@@ -6,6 +6,7 @@ use App\Indicacao as Indicacao;
 use App\Http\Resources\Indicacao as IndicacaoResource;
 use Illuminate\Http\Request;
 
+
 class IndicacaoController extends Controller
 {
 
