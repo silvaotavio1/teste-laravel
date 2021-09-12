@@ -2,10 +2,9 @@
 
 namespace App;
 
-// use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Model;
 
-class Indicacao extends ModelNotFoundException
+class Indicacao extends Model
 {
-//
+
 }
