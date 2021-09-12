@@ -49,6 +49,23 @@ class IndicacaoController extends Controller
       return response()->json(['error' => 'O CPF indica deve ser diferente do CPF indicado'], 403);
     }
 
+    $indicacao = Indicacao::whereNull('cpf_indicado')->find($cpf_indicado);
+
+    $indicacao = (array) $indicacao;
+
+    print_r($indicacao);exit;
+
+    foreach ($indicacao as $key => $value) {
+      if (strpos(" " . $key, "attributes")) {
+        $indicacao = $value;
+        break;
+      }
+    }
+
+
+
+
+
     $indicacao->email_indicado = $email_indicado;
     $indicacao->cpf_indicado = $cpf_indicado;
     $indicacao->cpf_indica = $cpf_indica;
