@@ -62,6 +62,13 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/indicacoes3', [IndicacaoController::class, 'index']);
 
+Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', [
+      'uses' => 'IndicacaoController@index',
+      'as' => 'dashboard'
+    ]);
+  });
+
 
 // Route::middleware('auth:api')->get('/indicacoes', [IndicacaoController::class, 'index']);
 
