@@ -54,7 +54,7 @@ class IndicacaoController extends Controller
     if($status_from <> $status_id)
     {
       $IndicacoesStatus = new IndicacoesStatus;
-      $IndicacoesStatus->status_from = $status_from;
+      $IndicacoesStatus->status_id_from = $status_from;
       $IndicacoesStatus->status_id = $status_id;
       $IndicacoesStatus->id = $request->id;
       $IndicacoesStatus->save();
