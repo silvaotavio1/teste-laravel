@@ -51,18 +51,18 @@ class IndicacaoController extends Controller
 
     $status_id = $status_from < 3 ? ($status_from + 1) : $status_from;
 
-    if($status_from <> $status_id)
-    {
-      $IndicacoesStatus = new IndicacoesStatus;
-      $IndicacoesStatus->status_from = $status_from;
-      $IndicacoesStatus->status_id = $status_id;
-      $IndicacoesStatus->id = $request->id;
-      $IndicacoesStatus->save();
-    }
-    else
-    {
-      
-    }
+    // if($status_from <> $status_id)
+    // {
+    //   $IndicacoesStatus = new IndicacoesStatus;
+    //   $IndicacoesStatus->status_from = $status_from;
+    //   $IndicacoesStatus->status_id = $status_id;
+    //   $IndicacoesStatus->id = $request->id;
+    //   $IndicacoesStatus->save();
+    // }
+    // else
+    // {
+
+    // }
 
     $indicacao = Indicacao::whereNull('deleted_at')->where('id', $request->id);
 
