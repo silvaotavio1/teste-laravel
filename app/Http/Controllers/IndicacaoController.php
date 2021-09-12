@@ -50,7 +50,8 @@ class IndicacaoController extends Controller
 
     if (!$valida_cpf_indica->valida()) {
       array_push($errors, "CPF ou CNPJ Inválido [indica]");
-    } elseif (!$valida_cpf_indicado->valida()) {
+    }
+    if (!$valida_cpf_indicado->valida()) {
       array_push($errors, "CPF ou CNPJ Inválido [indicado]");
     }
     #-------------------------------------------FIM-------------------------------------------------------
@@ -72,8 +73,7 @@ class IndicacaoController extends Controller
     }
     #-------------------------------------------FIM-------------------------------------------------------
 
-    if(!empty($errors))
-    {
+    if (!empty($errors)) {
       return response()->json(['error' => $errors], 403);
     }
 
