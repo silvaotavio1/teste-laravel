@@ -62,7 +62,7 @@ class IndicacaoController extends Controller
     }
     else
     {
-
+      return response()->json(['error' => 'Indicação já esta no status FINALIZADA!'], 403);
     }
 
     $indicacao = Indicacao::whereNull('deleted_at')->where('id', $request->id);
