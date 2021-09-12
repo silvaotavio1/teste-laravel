@@ -74,7 +74,7 @@ class IndicacaoController extends Controller
     #-------------------------------------------FIM-------------------------------------------------------
 
     if (!empty($errors)) {
-      return response()->json(['error' => $errors], 403);
+      return response()->json(['errors' => $errors], 403);
     }
 
     #------------------------Insere nova indicação após às etapas de validação-----------------------------
