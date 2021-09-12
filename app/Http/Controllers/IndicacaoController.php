@@ -51,17 +51,9 @@ class IndicacaoController extends Controller
 
     $count_indicado = Indicacao::where('cpf_indicado', $cpf_indicado)->get()->count();
 
-    $count_indicado = (array) $count_indicado;
+    // $count_indicado = (array) $count_indicado;
 
     print_r($count_indicado);exit;
-
-    foreach ($indicacao as $key => $value) {
-      if (strpos(" " . $key, "attributes")) {
-        $indicacao = $value;
-        break;
-      }
-    }
-
 
     $indicacao->email_indicado = $email_indicado;
     $indicacao->cpf_indicado = $cpf_indicado;
