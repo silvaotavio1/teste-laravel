@@ -56,7 +56,7 @@ Route::middleware('auth:api')->post('/avancastatus/{id}', function (IndicacaoCon
     return $indicacoes->update($request);
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::get('indicacoes2', [IndicacaoController::class, 'index']);
 });
 
