@@ -31,8 +31,9 @@ class IndicacaoController extends Controller
     $cpf_indicado = $request->input('cpf_indicado');
     $cpf_indica = $request->input('cpf_indica');
 
+    $cpf_indica = preg_replace('/[^0-9]/', '', $cpf_indica);
+    $cpf_indicado = preg_replace('/[^0-9]/', '', $cpf_indicado);
 
-    
     #--------------------------------------Validação do email----------------------------------------------
     if (!filter_var($email_indicado, FILTER_VALIDATE_EMAIL)) {
       return response()->json(['error' => 'Email inválido'], 400);
