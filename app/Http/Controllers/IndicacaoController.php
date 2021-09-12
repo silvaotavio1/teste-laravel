@@ -56,6 +56,7 @@ class IndicacaoController extends Controller
       $IndicacoesStatus = new IndicacoesStatus;
       $IndicacoesStatus->status_id_from = $status_from;
       $IndicacoesStatus->status_id = $status_id;
+      $IndicacoesStatus->user_alt = $request->user()['description'];
       $IndicacoesStatus->id = $request->id;
       $IndicacoesStatus->save();
     }
