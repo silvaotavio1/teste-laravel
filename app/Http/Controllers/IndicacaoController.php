@@ -31,10 +31,17 @@ class IndicacaoController extends Controller
     $cpf_indicado = $request->input('cpf_indicado');
     $cpf_indica = $request->input('cpf_indica');
 
+
+    
+    #--------------------------------------Validação do email----------------------------------------------
     if (!filter_var($email_indicado, FILTER_VALIDATE_EMAIL)) {
       return response()->json(['error' => 'Email inválido'], 400);
     }
+    #-------------------------------------------FIM-------------------------------------------------------
 
+
+
+    #------------------------Validação de CPF do indicado e do divulgador----------------------------------
     $valida_cpf_indicado = new ValidaCPFCNPJ($cpf_indicado);
     $valida_cpf_indica = new ValidaCPFCNPJ($cpf_indica);
 
@@ -43,17 +50,28 @@ class IndicacaoController extends Controller
     } elseif (!$valida_cpf_indicado->valida()) {
       return response()->json(['error' => 'CPF ou CNPJ Inválido [indicado]'], 400);
     }
+    #-------------------------------------------FIM-------------------------------------------------------
 
+
+
+    #---------------------Verifica se o cpf_indicado é igual ao cpf_indica---------------------------------
     if ($cpf_indicado == $cpf_indica) {
       return response()->json(['error' => 'O CPF indica deve ser diferente do CPF indicado'], 403);
     }
+    #-------------------------------------------FIM-------------------------------------------------------
 
+
+
+    #---------------------Verificação se o cpf já não foi indicado anteriormente---------------------------
     $count_indicado = Indicacao::where('cpf_indicado', $cpf_indicado)->get()->count();
-
     if ($count_indicado > 0) {
       return response()->json(['error' => 'O CPF iformado já foi indicado!'], 403);
     }
+    #-------------------------------------------FIM-------------------------------------------------------
 
+
+
+    #------------------------Insere nova indicação após às etapas de validação-----------------------------
     $indicacao->email_indicado = $email_indicado;
     $indicacao->cpf_indicado = $cpf_indicado;
     $indicacao->cpf_indica = $cpf_indica;
@@ -61,6 +79,7 @@ class IndicacaoController extends Controller
     if ($indicacao->save()) {
       return new IndicacaoResource($indicacao);
     }
+    #-------------------------------------------FIM-------------------------------------------------------
   }
 
   public function update(Request $request)
