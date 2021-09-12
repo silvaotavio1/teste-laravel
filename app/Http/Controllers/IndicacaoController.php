@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Indicacao as Indicacao;
-use App\IndicacoesStatus as IndicacoesStatus;
+// use App\IndicacoesStatus as IndicacoesStatus;
 use App\Http\Resources\Indicacao as IndicacaoResource;
 use Illuminate\Http\Request;
 
