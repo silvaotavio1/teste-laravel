@@ -31,6 +31,10 @@ class IndicacaoController extends Controller
     $cpf_indicado = $request->input('cpf_indicado');
     $cpf_indica = $request->input('cpf_indica');
 
+    if (!filter_var($email_indicado, FILTER_VALIDATE_EMAIL)) {
+      return response()->json(['error' => 'Email inválido'], 400);
+    }
+
     $valida_cpf_indicado = new ValidaCPFCNPJ($cpf_indicado);
     $valida_cpf_indica = new ValidaCPFCNPJ($cpf_indica);
 
