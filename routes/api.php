@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndicacaoController;
-// use App\Http\Controllers\IndicacaoController;
+// use App\Http\Controllers\AutenticarController;
 
 /*
 |__________________________________________________________________________|
@@ -15,7 +15,7 @@ use App\Http\Controllers\IndicacaoController;
 |__________________________________________________________________________|
 */
 
-// Route::get('/login','AutenticarController@index')->name('login');
+Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
 
 Route::fallback(function () {
     return response()->json(['error' => 'Rota inexistente!'], 404);
