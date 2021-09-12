@@ -28,7 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Teste de middleware - Rota base	
 Route::get('/use2r', function (Request $request) {
-    return response()->json([ 'valid' => auth()->check() ]);
+    return response()->json(['valid' => auth()->check()]);
 });
 
 // Listar indicacoes
@@ -56,7 +56,10 @@ Route::middleware('auth:api')->post('/avancastatus/{id}', function (IndicacaoCon
     return $indicacoes->update($request);
 });
 
-Route::get('indicacoes2', [IndicacaoController::class, 'index']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('indicacoes2', [IndicacaoController::class, 'index']);
+});
+
 
 Route::middleware('auth:api')->get('/indicacoes3', [IndicacaoController::class, 'index']);
 
