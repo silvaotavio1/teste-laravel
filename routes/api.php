@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndicacaoController;
-// use App\Http\Controllers\AutenticarController;
 
 /*
 |__________________________________________________________________________|
@@ -18,20 +17,12 @@ use App\Http\Controllers\IndicacaoController;
 // Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
 
 Route::fallback(function () {
-    foreach (getallheaders() as $name => $value) {
-        echo "$name: $value\n";
-    }
     return response()->json(['error' => 'Rota inexistente!'], 404);
 });
 
 //Teste de middleware - Rota base
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-//Teste de middleware - Rota base	
-Route::get('/use2r', function (Request $request) {
-    return response()->json(['valid' => auth()->check()]);
 });
 
 // Listar indicacoes
@@ -58,31 +49,3 @@ Route::middleware('auth:api')->delete('/indicacao/{id}', function (IndicacaoCont
 Route::middleware('auth:api')->post('/avancastatus/{id}', function (IndicacaoController $indicacoes, Request $request) {
     return $indicacoes->update($request);
 });
-
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('indicacoes2', [IndicacaoController::class, 'index']);
-});
-
-Route::get('/indicacoes3', [IndicacaoController::class, 'index']);
-
-Route::middleware('auth')->group(function() {
-    Route::get('/dashboard', [
-      'uses' => 'IndicacaoController@index',
-      'as' => 'dashboard'
-    ]);
-  });
-
-
-// Route::middleware('auth:api')->get('/indicacoes', [IndicacaoController::class, 'index']);
-
-// Listar indicacoes
-// 
-
-// Listar uma indicacao
-// Route::get('indicacoes/{id}', [IndicacaoController::class, 'show']);
-
-// Criar nova indicacao
-// Route::post('indicacao', [IndicacaoController::class, 'store']);
-
-// Deletar uma indicacao
-// Route::delete('indicacao/{id}', [IndicacaoController::class,'destroy']);
