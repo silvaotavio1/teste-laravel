@@ -44,16 +44,15 @@ class IndicacaoController extends Controller
       return response()->json(['error' => 'CPF ou CNPJ Inválido [indicado]'], 400);
     }
 
-    if($cpf_indicado == $cpf_indica)
-    {
+    if ($cpf_indicado == $cpf_indica) {
       return response()->json(['error' => 'O CPF indica deve ser diferente do CPF indicado'], 403);
     }
 
     $count_indicado = Indicacao::where('cpf_indicado', $cpf_indicado)->get()->count();
 
-    // $count_indicado = (array) $count_indicado;
-
-    print_r($count_indicado);exit;
+    if ($count_indicado > 0) {
+      return response()->json(['error' => 'O CPF iformado já foi indicado!'], 403);
+    }
 
     $indicacao->email_indicado = $email_indicado;
     $indicacao->cpf_indicado = $cpf_indicado;
